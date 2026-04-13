@@ -131,24 +131,30 @@ class BayesClassifier:
 
         
         # get a list of the individual tokens that occur in text
-        
+
+        tokens = self.tokenize(text)
 
         # create some variables to store the positive and negative probability. since
         # we will be adding logs of probabilities, the initial values for the positive
         # and negative probabilities are set to 0
         
+        pos_prob = 0
+        neg_prob = 0
 
         # get the sum of all of the frequencies of the features in each document class
         # (i.e. how many words occurred in all documents for the given class) - this
         # will be used in calculating the probability of each document class given each
         # individual feature
-        
+
+        total_pos_words = sum(self.pos_freqs.values())
+        total_neg_words = sum(self.neg_freqs.values())        
 
         # for each token in the text, calculate the probability of it occurring in a
         # postive document and in a negative document and add the logs of those to the
         # running sums. when calculating the probabilities, always add 1 to the numerator
         # of each probability for add one smoothing (so that we never have a probability
         # of 0)
+
 
 
         # for debugging purposes, it may help to print the overall positive and negative
@@ -220,8 +226,6 @@ class BayesClassifier:
                 if token != "":
                     tokens.append(token.lower())
                     token = ""
-                if c.strip() != "":
-                    tokens.append(str(c.strip()))
 
         if token != "":
             tokens.append(token.lower())
@@ -260,12 +264,12 @@ if __name__ == "__main__":
     assert a_dictionary["too"] == 1, "update_dict test 4"
     print("update_dict tests passed.")
 
-    # pos_denominator = sum(b.pos_freqs.values())
-    # neg_denominator = sum(b.neg_freqs.values())
+    pos_denominator = sum(b.pos_freqs.values())
+    neg_denominator = sum(b.neg_freqs.values())
 
-    # print("\nThese are the sums of values in the positive and negative dicitionaries.")
-    # print(f"sum of positive word counts is: {pos_denominator}")
-    # print(f"sum of negative word counts is: {neg_denominator}")
+    print("\nThese are the sums of values in the positive and negative dicitionaries.")
+    print(f"sum of positive word counts is: {pos_denominator}")
+    print(f"sum of negative word counts is: {neg_denominator}")
 
     # print("\nHere are some sample word counts in the positive and negative dicitionaries.")
     # print(f"count for the word 'love' in positive dictionary {b.pos_freqs['love']}")
