@@ -165,6 +165,8 @@ class BayesClassifier:
         # for debugging purposes, it may help to print the overall positive and negative
         # probabilities
         
+        print(f"Positive Probability: {pos_prob}")
+        print(f"Negative Probability: {neg_prob}")
 
         # determine whether positive or negative was more probable (i.e. which one was
         # larger)
